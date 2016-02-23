@@ -1,0 +1,77 @@
+<template name="questionForm">
+    <form class="new-question ui form">
+        <div class="field">
+            <label>Question:</label>
+            <input type="text" name="question" placeholder="Create a question">
+        </div>
+        <div class="field last-choice-field">
+            <label>Choice #1:</label>
+            <input class="last-choice" type="text" name="choice" placeholder="Add a choice">
+        </div>
+        <div id="submit" class="ui one column stackable center aligned page grid">
+            <div class="row"></div>
+            <div class="column twelve wide">
+                <div class="field">
+                    <input type="submit" value="Create Poll" class="ui green large basic button loading-button">
+                </div>
+            </div>
+        </div>
+    </form>
+    {{> questionError}}
+    {{> questionSuccess}}
+</template>
+
+<template name="questionError">
+    <div id="error-modal" class="ui small modal">
+        <div class="header">
+            Error
+        </div>
+        <div class="content">
+            <h5>You have the following errors with your poll:</h5>
+            <ul>
+                {{#each questionErrors}}
+                    <li>{{this}}</li>
+                {{/each}}
+                {{#each choiceErrors}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="actions">
+            <div class="ui cancel small red button">Got It!</div>
+        </div>
+    </div>
+</template>
+
+<template name="questionSuccess">
+    <div id="success-modal" class="ui small basic modal">
+        <div class="ui icon header">
+            <i class="checkmark icon"></i>
+            Successfully Created Poll!
+        </div>
+        <div class="content">
+            <div class="ui one column stackable center aligned page grid">
+                <div class="column sixteen wide">
+                    <h3>Here is your new poll, share this url and see what people are picking and saying:</h3>
+                    <h3 class="center aligned"><a id="poll-link" href="/{{urlKey}}" class="ok">votetell.com/{{urlKey}}</a></h3>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui one column stackable center aligned page grid">
+                <div class="column eight wide">
+                    <div class="ui inverted cancel red button">
+                        <i class="checkmark box icon"></i>
+                        Thanks
+                    </div>
+                </div>
+                <div class="column eight wide">
+                    <a href="/{{urlKey}}/r" class="ui right labeled icon green ok inverted button" role="button">
+                        <i class="right arrow icon"></i>
+                        Results
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
