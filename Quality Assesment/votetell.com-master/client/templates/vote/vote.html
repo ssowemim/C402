@@ -1,0 +1,75 @@
+<template name="vote">
+    <div class="ui grid container">
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="centered row">
+            <h1>{{question.question}}</h1>
+        </div>
+        <div class="centered row">
+            <p>Powered by Vote and Tell</p>
+        </div>
+        <div class="two column centered row">
+            <div class="column">
+                <form class="choice-selection ui form">
+                    <div class="grouped fields">
+                        <label for="choice">Please select a choice: </label>
+                        {{#each choices}}
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="choice" id="{{_id}}" value={{choice}}/>
+                                    <label>{{choice}}</label>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                    <br>
+                    <div class="field">
+                        <label for="name-text">Name:</label>
+                        <input type="text" id="name-text" name="name" placeholder="Enter a name (optional)">
+                    </div>
+                    <div class="field">
+                        <label for="response-text">Response:</label>
+                        <input type="text" id="response-text" name="response" placeholder="Enter a response (optional)"/>
+                    </div>
+                    <div id="submit" class="ui one column stackable center aligned page grid">
+                        <div class="row"></div>
+                        <div class="column twelve wide">
+                            <div class="field">
+                                <input type="submit" value="Vote" class="ui green large basic button vote-button">
+                            </div>
+                            {{#if hasVoted}}
+                                <a href="{{question.urlKey}}/r" style="color: black;">Take Me To The Results!</a>
+                            {{/if}}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{> choiceErrors}}
+</template>
+
+<template name="choiceErrors">
+    <div id="vote-error-modal" class="ui small modal">
+        <div class="header">
+            Error
+        </div>
+        <div class="content">
+            <h5>You have the following errors with your poll:</h5>
+            <ul>
+                {{#if choiceError}}
+                    <li>{{choiceError}}</li>
+                {{/if}}
+                {{#each responseErrors}}
+                    <li>{{this}}</li>
+                {{/each}}
+                {{#if unexpectedError}}
+                    <li>{{unexpectedError}}</li>
+                {{/if}}
+            </ul>
+        </div>
+        <div class="actions">
+            <div class="ui cancel small red button">Got It!</div>
+        </div>
+    </div>
+</template>

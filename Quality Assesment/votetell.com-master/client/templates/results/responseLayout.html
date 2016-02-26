@@ -1,0 +1,54 @@
+<template name="responseLayout">
+    <h1 class="ui center aligned header">Responses</h1>
+    <div class="ui center aligned grid">
+        <div class="row">
+            <button class="ui toggle tiny button active" id="update-real-time">
+                {{#if updateRealTime}}
+                    Update Real Time
+                {{else}}
+                    {{newResponses}} New Responses
+                {{/if}}
+            </button>
+        </div>
+        <div class="row">
+            <div class="ui floating dropdown labeled icon mini button" id="dropdown-button">
+                <i class="filter icon"></i>
+                <span class="text">Filter Responses</span>
+                <div class="menu">
+                    <div class="divider"></div>
+                    <div class="header">
+                        <i class="tags icon"></i>
+                        Choices
+                    </div>
+                    <div class="scrolling menu">
+                        <div class="item" id="item-all">
+                            <div class="ui black empty circular label"></div>
+                            All
+                        </div>
+                        {{#each choices}}
+                            <div class="item" id="{{_id}}">
+                                <div class="ui {{getColorForChoice _id}} empty circular label"></div>
+                                {{choice}}
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui divided items" style="overflow: auto; height: 450px;">
+        {{#each responses}}
+            <div class="item">
+                <div class="content">
+                    <div class="header">{{name}}</div>
+                    <div class="meta">
+                        <span>{{formatDate date}}</span>
+                    </div>
+                    <div class="description">
+                        <p>{{response}}</p>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</template>
